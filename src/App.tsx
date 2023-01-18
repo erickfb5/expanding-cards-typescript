@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { panels, Panel } from "./panels";
 
-function App() {
+const App: React.FC = () => {
+  const [activePanel, setActivePanel] = useState<number>(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="container">
+      {panels.map((panel: Panel, index: number) => (
+        <div
+          key={index}
+          className={`panel ${index === activePanel ? "active" : "inactive"}`}
+          style={{ backgroundImage: `url(${panel.background})` }}
+          onClick={() => setActivePanel(index)}
         >
-          Learn React
-        </a>
-      </header>
+          <h3>{panel.title}</h3>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
 export default App;
